@@ -53,8 +53,8 @@ public class StudentMainFrame extends JFrame {
 	
 	private void initService() {
 		this.studentService = StudentService.getInstance();
-		this.selectCourseService = new SelectCourseService();
-		this.courseService = new CourseService();
+		this.selectCourseService = SelectCourseService.getInstance();
+		this.courseService = CourseService.getInstance();
 		this.teacherService = TeacherService.getInstance();
 		List<Teacher> teacherList = teacherService.findAllTeacher();
 		this.teacherMap = new HashMap<>();

@@ -72,7 +72,7 @@ public class DBUtil {
      * @param ps PreparedStatement
      * @param conn Connection
      */
-    public static void close(PreparedStatement ps, Connection conn) {
+    private static void close(PreparedStatement ps, Connection conn) {
         close(null, ps, conn);
     }
 

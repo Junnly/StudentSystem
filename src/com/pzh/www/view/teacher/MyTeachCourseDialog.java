@@ -59,7 +59,7 @@ public class MyTeachCourseDialog extends JDialog{
 		if(frame instanceof TeacherMainFrame) {
 			this.teacherMainFrame = (TeacherMainFrame) frame;
 		}
-		this.initialize();
+		this.init();
 		this.setLayout(null);
 		this.add(jscrollPane);
 		this.add(addPanel);
@@ -74,14 +74,13 @@ public class MyTeachCourseDialog extends JDialog{
 		this.setVisible(true);
 	}
 
-	public void setTable() {
+	private void initTable() {
 		table = new JTable(tableModel);													//创建表格
 		table.setRowHeight(25); 																//设置行高
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN); //设置表格的自动调整模式
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //设置为单选
 		table.setRowSorter(new TableRowSorter<>(tableModel));
 		table.addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new SetStudentCourseGradeDialog(getMyTeachCourseDialog(),
@@ -91,11 +90,10 @@ public class MyTeachCourseDialog extends JDialog{
 		});
 	}
 
-	public void setTableModel() {
+	private void initTableModel() {
 		String[] columnName = TeacherFrameConstant.MYTEACH_COURSE_DIALOG_TABLEMODEL_COLUMNNAME;
-		String[][] tableValues = null;
 		//设置单元格不可被编辑
-		tableModel = new DefaultTableModel(tableValues,columnName) {
+		tableModel = new DefaultTableModel(null,columnName) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -103,13 +101,13 @@ public class MyTeachCourseDialog extends JDialog{
 		};
 	}
 	
-	public void setJscrollPane() {
+	private void initJscrollPane() {
 		jscrollPane = new JScrollPane(table);			//创建面板
 		jscrollPane.setSize(400, 240);
 		jscrollPane.setLocation(40, 40);
 	}
 	
-	public void setEastPanel() {
+	private void initEastPanel() {
 		eastPanel = new JPanel();
 		courseIdLabel = new JLabel("要删除的课程编号:");
 		courseIdLabel.setFont(TeacherFrameConstant.MYTEACH_COURSE_DIALOG_LABEL_FONT);
@@ -121,7 +119,7 @@ public class MyTeachCourseDialog extends JDialog{
 		eastPanel.setLocation(480, 220);
 	}
 	
-	public void setAddCourseButton() {
+	private void initAddCourseButton() {
 		addCourseButton = new JButton(TeacherFrameConstant.MYTEACH_COURSE_DIALOG_ADD_COURSE_BUTTON);
 		addCourseButton.setSize(110, 30);
 		addCourseButton.setLocation(590, 180);
@@ -150,31 +148,27 @@ public class MyTeachCourseDialog extends JDialog{
 		
 	}
 	
-	public void setDeleteCourseButton() {
+	private void initDeleteCourseButton() {
 		deleteCourseButton = new JButton(TeacherFrameConstant.MYTEACH_COURSE_DIALOG_DELETE_COURSE_BUTTON);
 		deleteCourseButton.setSize(110, 30);
 		deleteCourseButton.setLocation(590, 260);
-		deleteCourseButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if("".equals(deleteTextField.getText().trim())) {
-					new CheckDialog(getMyTeachCourseDialog(), "删除文本框不能为空").setVisible(true);;
-				}else {
-					if(teacherMainFrame.getCourseService().deleteCourse(
-							Integer.parseInt(deleteTextField.getText()),
-							teacherMainFrame.getTeacher().getId())) {
-						new CheckDialog(getMyTeachCourseDialog(), "删除成功！").setVisible(true);;
-						showTable(
-								teacherMainFrame.getCourseService().getCourseByTeacherId(teacherMainFrame.getTeacher().getId())
-								);
-					}	
+		deleteCourseButton.addActionListener(e -> {
+			if("".equals(deleteTextField.getText().trim())) {
+				new CheckDialog(getMyTeachCourseDialog(), "删除文本框不能为空").setVisible(true);;
+			}else {
+				if(teacherMainFrame.getCourseService().deleteCourse(
+						Integer.parseInt(deleteTextField.getText()),
+						teacherMainFrame.getTeacher().getId())) {
+					new CheckDialog(getMyTeachCourseDialog(), "删除成功！").setVisible(true);;
+					showTable(
+							teacherMainFrame.getCourseService().getCourseByTeacherId(teacherMainFrame.getTeacher().getId())
+							);
 				}
 			}
 		});
 	}
 	
-	public void setAddPanel() {
+	private void initAddPanel() {
 		addPanel = new JPanel();
 		addPanel.add(courseNameLabel);
 		addPanel.add(courseNameTextField);
@@ -189,7 +183,7 @@ public class MyTeachCourseDialog extends JDialog{
 		addPanel.setLocation(480, 50);
 	}
 	
-	public void initializeLabel() {
+	private void initLabel() {
 		 courseNameLabel = new JLabel("课程名字:");
 		 courseHourJLabel = new JLabel("学时:");
 		 creditJLabel = new JLabel("学分:");
@@ -201,37 +195,37 @@ public class MyTeachCourseDialog extends JDialog{
 		 siteJLabel.setFont(TeacherFrameConstant.MYTEACH_COURSE_DIALOG_LABEL_FONT);
 	}
 	
-	public void initializeTextField() {
+	private void initTextField() {
 		courseNameTextField = new JTextField(15);
 		courseHourTextField = new JTextField(15);
 		creditTextField = new JTextField(15);
 		siteTextField = new JTextField(15);
 	}
 	
-	public void initialize() {
-		this.setTableModel();
-		this.setTable();
-		this.setAddCourseButton();
-		this.setDeleteCourseButton();
-		this.setJscrollPane();
-		this.initializeLabel();
-		this.initializeTextField();
-		this.setAddPanel();
-		this.setEastPanel();
+	private void init() {
+		this.initTableModel();
+		this.initTable();
+		this.initAddCourseButton();
+		this.initDeleteCourseButton();
+		this.initJscrollPane();
+		this.initLabel();
+		this.initTextField();
+		this.initAddPanel();
+		this.initEastPanel();
 	}
 	
-	public MyTeachCourseDialog getMyTeachCourseDialog() {
+	private MyTeachCourseDialog getMyTeachCourseDialog() {
 		return this;
 	}
 
-	public TeacherMainFrame getTeacherMainFrame() {
+	TeacherMainFrame getTeacherMainFrame() {
 		return teacherMainFrame;
 	}
 
-	/*
+	/**
 	 * 展示数据到表格中
 	 */
-	public void showTable(Map<Integer, Course> map) {
+	private void showTable(Map<Integer, Course> map) {
 		tableModel.setRowCount(0);
 		Set<Integer> set = map.keySet();
 		for (Integer integer : set) {
@@ -247,10 +241,10 @@ public class MyTeachCourseDialog extends JDialog{
 		}
 	}
 	
-	/*
+	/**
 	 * 检查文本框
 	 */
-	public boolean checkTextField() {
+	private boolean checkTextField() {
 		if("".equals(courseNameTextField.getText().trim())) {
 			new CheckDialog(getMyTeachCourseDialog(), "课程名字不能为空！").setVisible(true);
 			return false;

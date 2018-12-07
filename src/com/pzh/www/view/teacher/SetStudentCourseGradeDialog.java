@@ -1,8 +1,6 @@
 package com.pzh.www.view.teacher;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
@@ -57,7 +55,7 @@ public class SetStudentCourseGradeDialog extends JDialog {
 			myTeachCourseDialog = (MyTeachCourseDialog) dialog;
 		}
 		this.courseId = courseId;
-		this.initialize();
+		this.init();
 		studentMap = myTeachCourseDialog.getTeacherMainFrame().getStudentService().findAllStudentMap();
 		selectCourseMap = myTeachCourseDialog.
 				getTeacherMainFrame().
@@ -67,13 +65,13 @@ public class SetStudentCourseGradeDialog extends JDialog {
 		this.setResizable(false);
 	}
 	
-	public void setJscrollPane() {
+	private void initJscrollPane() {
 		this.jscrollPane = new JScrollPane(table);
 		jscrollPane.setSize(400, 240);
 		jscrollPane.setLocation(40, 40);
 	}
 	
-	public void setTable() {
+	private void initTable() {
 		table = new JTable(tableModel);													//创建表格
 		table.setRowHeight(25); 																//设置行高
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN); //设置表格的自动调整模式
@@ -91,11 +89,10 @@ public class SetStudentCourseGradeDialog extends JDialog {
 		});
 	}
 	
-	public void setTableModel() {
+	private void initTableModel() {
 		String[] columnName = TeacherFrameConstant.SET_STUDENT_COURSE_GRADE_TABLEMODEL_COLUMNNAME;
-		String[][] tableValues = null;
 		//设置单元格不可被编辑
-				tableModel = new DefaultTableModel(tableValues,columnName) {
+				tableModel = new DefaultTableModel(null,columnName) {
 					@Override
 					public boolean isCellEditable(int row, int column) {
 						return false;
@@ -103,7 +100,7 @@ public class SetStudentCourseGradeDialog extends JDialog {
 				};
 	}
 	
-	public void initializeLabel() {
+	private void initLabel() {
 		studentIdLabel = new JLabel("学生编号:");
 		studentNoLabel = new JLabel("学生学号:");
 		studentNameLabel = new JLabel("学生姓名:");
@@ -115,7 +112,7 @@ public class SetStudentCourseGradeDialog extends JDialog {
 		gradeLabel.setFont(TeacherFrameConstant.SET_STUDENT_COURSE_GRADE_LABEL_FONT);
 	}
 	
-	public void initializeTextField() {
+	private void initTextField() {
 		studentIdTextField = new JTextField(15);
 		studentNoTextField= new JTextField(15);
 		studentNameTextField= new JTextField(15);
@@ -126,31 +123,28 @@ public class SetStudentCourseGradeDialog extends JDialog {
 		studentNameTextField.setEditable(false);
 	}
 	
-	public void setUpdateButton() {
+	private void initUpdateButton() {
 		updateButton = new JButton(TeacherFrameConstant.SET_STUDENT_COURSE_GRADE_UPDATE_BUTTON);
 		updateButton.setSize(100, 30);
 		updateButton.setLocation(580, 220);
-		updateButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(checkTextField()) {
-					if(myTeachCourseDialog.getTeacherMainFrame().getSelectCourseService().setStudentGrade(
-							Integer.parseInt(studentIdTextField.getText()), courseId, Integer.parseInt(gradeTextField.getText())
-							)) {
-						new CheckDialog(getSetStudentCourseGradeDialog(), "保存成功").setVisible(true);
-						selectCourseMap = myTeachCourseDialog.
-								getTeacherMainFrame().
-                                getSelectCourseService().
-								findSelectCourseByCourseId(courseId);
-						showTable(selectCourseMap, studentMap);
-					}
-					
+		updateButton.addActionListener(e -> {
+			if(checkTextField()) {
+				if(myTeachCourseDialog.getTeacherMainFrame().getSelectCourseService().setStudentGrade(
+						Integer.parseInt(studentIdTextField.getText()), courseId, Integer.parseInt(gradeTextField.getText())
+						)) {
+					new CheckDialog(getSetStudentCourseGradeDialog(), "保存成功").setVisible(true);
+					selectCourseMap = myTeachCourseDialog
+							.getTeacherMainFrame()
+							.getSelectCourseService()
+							.findSelectCourseByCourseId(courseId);
+					showTable(selectCourseMap, studentMap);
 				}
+
 			}
 		});
 	}
 	
-	public void setSetGradePanel() {
+	private void initSetGradePanel() {
 		setGradePanel = new JPanel();
 		setGradePanel.setLayout(new GridLayout(5, 2));
 		setGradePanel.add(studentIdLabel);
@@ -165,14 +159,14 @@ public class SetStudentCourseGradeDialog extends JDialog {
 		setGradePanel.setLocation(480, 80);
 	}
 
-	public void initialize() {
-		this.setTableModel();
-		this.setTable();
-		this.setJscrollPane();
-		this.initializeLabel();
-		this.initializeTextField();
-		this.setUpdateButton();
-		this.setSetGradePanel();
+	private void init() {
+		this.initTableModel();
+		this.initTable();
+		this.initJscrollPane();
+		this.initLabel();
+		this.initTextField();
+		this.initUpdateButton();
+		this.initSetGradePanel();
 		this.setLayout(null);
 		this.add(jscrollPane);
 		this.add(setGradePanel);
@@ -182,10 +176,10 @@ public class SetStudentCourseGradeDialog extends JDialog {
 		this.setVisible(true);
 	}
 
-	/*
+	/**
 	 * 展示已选改课的学生数据
 	 */
-	public void showTable(Map<Integer,SelectCourse> selectCourseMap,Map<Integer,Student> studentMap) {
+	private void showTable(Map<Integer, SelectCourse> selectCourseMap, Map<Integer, Student> studentMap) {
 		tableModel.setRowCount(0);
 		Set<Integer> set = selectCourseMap.keySet();
 		for (Integer integer : set) {
@@ -200,11 +194,11 @@ public class SetStudentCourseGradeDialog extends JDialog {
 		}
 	}
 	
-	public SetStudentCourseGradeDialog getSetStudentCourseGradeDialog() {
+	private SetStudentCourseGradeDialog getSetStudentCourseGradeDialog() {
 		return this;
 	}
 
-	public boolean checkTextField() {
+	private boolean checkTextField() {
 		if(studentIdTextField.getText().trim().length() == 0) {
 			new CheckDialog(getSetStudentCourseGradeDialog(), "未选择学生").setVisible(true);
 			return false;

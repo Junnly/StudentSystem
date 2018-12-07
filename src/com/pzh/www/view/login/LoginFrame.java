@@ -35,7 +35,7 @@ public class LoginFrame extends JFrame{
 	 * 登录窗体的构造方法
 	 */
 	public LoginFrame() {
-		init();					// 初始化登录窗体
+		init();	// 初始化登录窗体
 		this.setVisible(true);
 		this.setResizable(false);
 	}
@@ -48,15 +48,15 @@ public class LoginFrame extends JFrame{
 			new LoginPanel();
 			// “密码”标签
 			JLabel passwordLabel = new JLabel("密   码:");
-			passwordLabel.setBounds(300,200,80,50);								//设置密码小标签的位置和大小
+			passwordLabel.setBounds(300,200,80,50);//设置密码小标签的位置和大小
 			passwordLabel.setFont(new Font("微软雅黑",Font.PLAIN,16));//设置密码小标签的字体样式
-			passwordLabel.setForeground(Color.WHITE);						//设置密码小标签的字体颜色
+			passwordLabel.setForeground(Color.WHITE);//设置密码小标签的字体颜色
 
 			// “用户名”标签
 			JLabel usernameLabel = new JLabel("用户名:");
-			usernameLabel.setBounds(300, 150, 80, 50);							//设置用户名小标签的位置和大小
+			usernameLabel.setBounds(300, 150, 80, 50);//设置用户名小标签的位置和大小
 			usernameLabel.setFont(new Font("微软雅黑",Font.PLAIN,16));//设置用户名小标签的字体样式
-			usernameLabel.setForeground(Color.WHITE);						//设置用户名小标签的字体颜色
+			usernameLabel.setForeground(Color.WHITE);//设置用户名小标签的字体颜色
 
 			// “标题”标签
 			JLabel titleLabel = new JLabel("用户管理系统");
@@ -64,16 +64,16 @@ public class LoginFrame extends JFrame{
 			titleLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
 			titleLabel.setForeground(Color.WHITE);
 			
-			loginPanel = new LoginPanel();									// 登录面板
-			loginPanel.setLayout(null);										// 设置登录面板的布局为绝对布局
-			loginPanel.setBackground(Color.BLACK);					// 设置登录面板的背景色
-			loginPanel.add(titleLabel,null);									// 把“标题”标签置于登录面板中
-			loginPanel.add(usernameLabel, null);						// 把“用户名”标签置于登录面板中
-			loginPanel.add(passwordLabel, null);							// 把“密码”标签置于登录面板中
-			loginPanel.add(getUsernameTextField(), null);			// 把“用户名”文本框置于登录面板中
-			loginPanel.add(getPasswordField(), null);					// 把“密码”文本框置于登录面板中
-			loginPanel.add(getLoginButton(), null);						// 把“登录”按钮置于登录面板中
-			loginPanel.add(getResetButton(), null);						// 把“退出”按钮置于登录面板中
+			loginPanel = new LoginPanel();// 登录面板
+			loginPanel.setLayout(null);	// 设置登录面板的布局为绝对布局
+			loginPanel.setBackground(Color.BLACK);// 设置登录面板的背景色
+			loginPanel.add(titleLabel,null);// 把“标题”标签置于登录面板中
+			loginPanel.add(usernameLabel, null);// 把“用户名”标签置于登录面板中
+			loginPanel.add(passwordLabel, null);// 把“密码”标签置于登录面板中
+			loginPanel.add(getUsernameTextField(), null);// 把“用户名”文本框置于登录面板中
+			loginPanel.add(getPasswordField(), null);	// 把“密码”文本框置于登录面板中
+			loginPanel.add(getLoginButton(), null);// 把“登录”按钮置于登录面板中
+			loginPanel.add(getResetButton(), null);// 把“退出”按钮置于登录面板中
 			
 			initRadioButton();
 			loginPanel.add(userButton,null);
@@ -88,20 +88,20 @@ public class LoginFrame extends JFrame{
 	 * 初始化“用户名”文本框
 	 */
 	private JTextField getUsernameTextField() {
-		usernameTextField = new JTextField();								//用户名文本框
-		usernameTextField.setBounds(380, 165, 160, 20);				//设置用户名文本框的位置和大小
+		usernameTextField = new JTextField();//用户名文本框
+		usernameTextField.setBounds(380, 165, 160, 20);//设置用户名文本框的位置和大小
 		usernameTextField.setFont(new Font("微软雅黑",Font.PLAIN,13));//设置用户名文本框的字体样式
-		return usernameTextField;												// 返回“用户名”文本框
+		return usernameTextField;// 返回“用户名”文本框
 	}
 	
 	/**
 	 * 初始化“密码”文本框
 	 */
 	private JPasswordField getPasswordField() {
-		passwordTextField = new JPasswordField();						//密码文本框
-		passwordTextField.setBounds(380, 215, 160, 20);				//设置密码文本框的位置和大小
+		passwordTextField = new JPasswordField();//密码文本框
+		passwordTextField.setBounds(380, 215, 160, 20);//设置密码文本框的位置和大小
 		passwordTextField.setFont(new Font("微软雅黑",Font.PLAIN,13));//设置密码文本框的字体样式
-		return passwordTextField;													// 返回“密码”文本框
+		return passwordTextField;// 返回“密码”文本框
 	}
 	
 	/**
@@ -110,10 +110,10 @@ public class LoginFrame extends JFrame{
 	private JButton getLoginButton() {
 		// “登录”按钮
 		JButton loginButton = new JButton("登录");
-		loginButton.setBounds(330, 275, 70, 30);						//设置登录按钮的位置和大小
+		loginButton.setBounds(330, 275, 70, 30);	//设置登录按钮的位置和大小
 		loginButton.setFont(new Font("Bold",Font.PLAIN,12)); //设置登录按钮的字体样式
-		loginButton.setForeground(Color.WHITE);						//设置登录按钮的字体颜色
-		loginButton.setBackground(new Color(1,158,151));		//设置登录按钮的背景颜色
+		loginButton.setForeground(Color.WHITE);	//设置登录按钮的字体颜色
+		loginButton.setBackground(new Color(1,158,151));//设置登录按钮的背景颜色
 		//登录按钮的监听事件
 		loginButton.addActionListener(new LoginButtonActionListener());
 		return loginButton;
@@ -125,10 +125,10 @@ public class LoginFrame extends JFrame{
 	private JButton getResetButton() {
 		// “重置”按钮
 		JButton resetButton = new JButton("重置");
-		resetButton.setBounds(430, 275, 70, 30);						//设置重置按钮的位置和大小
+		resetButton.setBounds(430, 275, 70, 30);//设置重置按钮的位置和大小
 		resetButton.setFont(new Font("Bold",Font.PLAIN,12));	//设置重置按钮的字体样式
-		resetButton.setForeground(Color.WHITE);						//设置重置按钮的字体颜色
-		resetButton.setBackground(new Color(1,158,151));		//设置重置按钮的背景颜色
+		resetButton.setForeground(Color.WHITE);	//设置重置按钮的字体颜色
+		resetButton.setBackground(new Color(1,158,151));//设置重置按钮的背景颜色
 		//重置按钮的监听事件
 		resetButton.addActionListener(e -> {
 			usernameTextField.setText("");

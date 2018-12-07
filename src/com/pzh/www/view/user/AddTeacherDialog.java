@@ -45,18 +45,18 @@ public class AddTeacherDialog extends JDialog{
 	private CheckDialog checkDialog;				//检查 窗体
 	private UserMainFrame userMainFrame;		//保留主窗体的引用
 	
-	/*
+	/**
 	 * 初始化 检查 窗体
 	 */
-	public CheckDialog getCheckDialog() {
+	private CheckDialog getCheckDialog() {
 		checkDialog = new CheckDialog(getAddTeacherDialog());
 		return checkDialog;
 	}
 
-	/*
+	/**
 	 * 初始化 继续添加 按钮
 	 */
-	public JButton getContinueAddButton() {
+	private JButton getContinueAddButton() {
 		continueAddButton = new JButton(UserFrameConstant.ADD_TEACHER_DIALOG_CONTINUEADD_BUTTON);
 		continueAddButton.setFont(UserFrameConstant.ADD_TEACHER_DIALOG_BUTTON_FONT);
 		continueAddButton.setBackground(new Color(1,158,151));
@@ -79,31 +79,28 @@ public class AddTeacherDialog extends JDialog{
 		return continueAddButton;
 	}
 
-	/*
+	/**
 	 * 初始化 返回 按钮
 	 */
-	public JButton getBackButton() {
+	private JButton getBackButton() {
 		backButton = new JButton(UserFrameConstant.ADD_TEACHER_DIALOG_BACK_BUTTON);
 		backButton.setFont(UserFrameConstant.ADD_TEACHER_DIALOG_BUTTON_FONT);
 		backButton.setBackground(new Color(1,158,151));
 		backButton.setForeground(Color.WHITE);
-		backButton.addActionListener(new ActionListener() {
-			//返回 按钮的监听事件
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				checkDialog.setVisible(false);
-				checkDialog.dispose();
-				getAddTeacherDialog().setVisible(false);
-				getAddTeacherDialog().dispose();
-			}
+		//返回 按钮的监听事件
+		backButton.addActionListener(e -> {
+			checkDialog.setVisible(false);
+			checkDialog.dispose();
+			getAddTeacherDialog().setVisible(false);
+			getAddTeacherDialog().dispose();
 		});
 		return backButton;
 	}
 	
-	/*
+	/**
 	 * 初始化标签
 	 */
-	private void initializeLabel() {
+	private void initLabel() {
 		teacherNameLabel = new JLabel("老师名字：",JLabel.CENTER);
 		teacherGradeLabel = new JLabel("管理年级：",JLabel.CENTER);
 		teacherClassLabel = new JLabel("管理班级：",JLabel.CENTER);
@@ -121,10 +118,10 @@ public class AddTeacherDialog extends JDialog{
 		teacherPasswordLabel.setFont(UserFrameConstant.ADD_TEACHER_DIALOG_LABEL_FONT);
 	}
 	
-	/*
+	/**
 	 * 初始化文本框
 	 */
-	private void initializeTextField() {
+	private void initTextField() {
 		teacherNameTextField = new JTextField(15);
 		teacherGradeTextField = new JTextField(15);
 		teacherClassTextField = new JTextField(15);
@@ -154,97 +151,91 @@ public class AddTeacherDialog extends JDialog{
 		return teacherEmailTextField;
 	}
 	
-	/*
+	/**
 	 * 初始化 确定 按钮
 	 */
-	public JButton getOkButton(){
+	private JButton getOkButton(){
 		okButton = new JButton(UserFrameConstant.ADD_TEACHER_DIALOG_OK_BUTTON);
 		okButton.setFont(UserFrameConstant.ADD_TEACHER_DIALOG_BUTTON_FONT);
 		okButton.setBackground(new Color(1,158,151));
 		okButton.setForeground(Color.WHITE);
-		okButton.addActionListener(new ActionListener() {
-			//确定按钮的监听事件
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(checkAddTeacherTable()) {
-					teacher = new Teacher();
-					teacher.setTeacherName(teacherNameTextField.getText());
-					teacher.setTeacherGrade(teacherGradeTextField.getText());
-					teacher.setTeacherClass(teacherClassTextField.getText());
-					teacher.setTeacherPhone(teacherPhoneTextField.getText());
-					teacher.setTeacherEmail(teacherEmailTextField.getText());
-					teacher.setTeacherNo(teacherNoTextField.getText());
-					teacher.setTeacherPassword(teacherPasswordTextField.getText());
-					
-					if(userMainFrame.getTeacherService().addTeacher(teacher)) {
-						checkDialog = getCheckDialog();
-						checkDialog.setLayout(new FlowLayout());
-						JLabel jlabel = new JLabel("添加成功!",JLabel.CENTER);	//创建一个提示的标签
-						jlabel.setFont(new Font("微软雅黑",Font.BOLD,18));			 //设置标签的字体样式
-						checkDialog.add(jlabel);
-						checkDialog.add(continueAddButton);
-						checkDialog.add(backButton);
-						checkDialog.setSize(180, 120);
-						checkDialog.setVisible(true);
-					}else {
-						checkDialog = new CheckDialog(getAddTeacherDialog(), "教工编号已存在!");
-						checkDialog.setVisible(true);
-					}
-					
+		//确定按钮的监听事件
+		okButton.addActionListener(e -> {
+			if(checkAddTeacherTable()) {
+				teacher = new Teacher();
+				teacher.setTeacherName(teacherNameTextField.getText());
+				teacher.setTeacherGrade(teacherGradeTextField.getText());
+				teacher.setTeacherClass(teacherClassTextField.getText());
+				teacher.setTeacherPhone(teacherPhoneTextField.getText());
+				teacher.setTeacherEmail(teacherEmailTextField.getText());
+				teacher.setTeacherNo(teacherNoTextField.getText());
+				teacher.setTeacherPassword(teacherPasswordTextField.getText());
+
+				if(userMainFrame.getTeacherService().addTeacher(teacher)) {
+					checkDialog = getCheckDialog();
+					checkDialog.setLayout(new FlowLayout());
+					JLabel jlabel = new JLabel("添加成功!",JLabel.CENTER);	//创建一个提示的标签
+					jlabel.setFont(new Font("微软雅黑",Font.BOLD,18));			 //设置标签的字体样式
+					checkDialog.add(jlabel);
+					checkDialog.add(continueAddButton);
+					checkDialog.add(backButton);
+					checkDialog.setSize(180, 120);
+					checkDialog.setVisible(true);
+				}else {
+					checkDialog = new CheckDialog(getAddTeacherDialog(), "教工编号已存在!");
+					checkDialog.setVisible(true);
 				}
+
 			}
 		});
 		return okButton;
 	}
 	
-	/*
+	/**
 	 * 初始化 取消 按钮
 	 */
-	public JButton getCancelButton(){
+	private JButton getCancelButton(){
 		cancelButton = new JButton(UserFrameConstant.ADD_TEACHER_DIALOG_CANCEL_BUTTON);
 		cancelButton.setFont(UserFrameConstant.ADD_TEACHER_DIALOG_BUTTON_FONT);
 		cancelButton.setBackground(new Color(1,158,151));
 		cancelButton.setForeground(Color.WHITE);
-		cancelButton.addActionListener(new ActionListener() {
-			//取消按钮的监听事件
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				teacherNameTextField.setText("");	
-				teacherGradeTextField.setText("");	
-				teacherClassTextField.setText("");	
-				teacherPhoneTextField.setText("");	
-				teacherEmailTextField.setText("");
-				teacherNoTextField.setText("");
-				teacherPasswordTextField.setText("");
-				getAddTeacherDialog().setVisible(false);
-			}
+		//取消按钮的监听事件
+		cancelButton.addActionListener(e -> {
+			teacherNameTextField.setText("");
+			teacherGradeTextField.setText("");
+			teacherClassTextField.setText("");
+			teacherPhoneTextField.setText("");
+			teacherEmailTextField.setText("");
+			teacherNoTextField.setText("");
+			teacherPasswordTextField.setText("");
+			getAddTeacherDialog().setVisible(false);
 		});
 		return cancelButton;
 	}
 	
-	/*
+	/**
 	 * 返回 本类 引用
 	 */
-	public AddTeacherDialog getAddTeacherDialog() {
+	private AddTeacherDialog getAddTeacherDialog() {
 		return this;
 	}
 
-	/*
+	/**
 	 * 不带参数的构造器
 	 */
 	public AddTeacherDialog() {
 		
 	}
 	
-	/*
+	/**
 	 * 含参数的构造器
 	 */
 	public AddTeacherDialog(UserMainFrame frame) {
 		super(frame,"添加老师",true);
 		this.userMainFrame = frame;
 		JPanel c = new JPanel();
-		initializeLabel();							//初始化 各种标签
-		initializeTextField();					//初始化 各种文本框
+		initLabel();							//初始化 各种标签
+		initTextField();					//初始化 各种文本框
 		c.add(teacherNameLabel);			//老师 name
 		c.add(teacherNameTextField);
 		c.add(teacherGradeLabel);			//老师 管理年级
@@ -269,7 +260,7 @@ public class AddTeacherDialog extends JDialog{
 		this.setResizable(false);
 	}
 	
-	/*
+	/**
 	 * 添加表的表单验证
 	 */
 	private boolean checkAddTeacherTable() {

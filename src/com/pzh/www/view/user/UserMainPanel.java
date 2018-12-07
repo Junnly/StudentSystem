@@ -20,14 +20,14 @@ public class UserMainPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 295694732619315422L;
 	private Image img;// 登录面板的背景图片
-	/*
+	/**
 	 * 用户主面板的构造方法
 	 */
-	public UserMainPanel() {
-		super();											  								// 调用父类JPanel的构造器
+	UserMainPanel() {
+		super();// 调用父类JPanel的构造器
 		File bgimFile = new File(UserFrameConstant.USERMAINPANEL_BGIM_PATH);
 		ImageIcon bgim = new ImageIcon(bgimFile.getPath());
-		img = bgim.getImage();				  								// 获得登录面板的背景图片
+		img = bgim.getImage();// 获得登录面板的背景图片
 	}
 	
 	@Override

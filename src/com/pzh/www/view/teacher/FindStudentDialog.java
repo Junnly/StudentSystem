@@ -30,36 +30,36 @@ public class FindStudentDialog extends JDialog {
 	private JButton findByNameButton;			//根据 name 查询的查询按钮
 	private TeacherMainFrame teacherMainFrame;	//保留对原窗体的引用
 
-	/*
+	/**
 	 * 初始化 标签
 	 */
-	private void initializeLabel() {
+	private void initLabel() {
 		studentNoLabel = new JLabel("根据studentNo查询   No：",JLabel.CENTER);
 		studentNoLabel.setFont(TeacherFrameConstant.FIND_STUDENT_DIALOG_LABEL_FONT);
 		studentNameLabel = new JLabel("根据name的模糊查询   name：",JLabel.CENTER);
 		studentNameLabel.setFont(TeacherFrameConstant.FIND_STUDENT_DIALOG_LABEL_FONT);
 	}
 	
-	/*
+	/**
 	 * 初始化 文本框
 	 */
-	private void initializeTextField() {
+	private void initTextField() {
 		studentNoTextField = new JTextField(15);
 		studentNameTextField = new JTextField(15);
 	}
 	
-	/*
+	/**
 	 * 初始化 按钮
 	 */
-	private void initializeButton() {
-		setFindByNoButton();
-		setFindByNameButton();
+	private void initButton() {
+		initFindByNoButton();
+		initFindByNameButton();
 	}
 
-	/*
+	/**
 	 * 设置 查询(No) 确定按钮
 	 */
-	private void setFindByNoButton() {
+	private void initFindByNoButton() {
 		findByNoButton = new JButton(TeacherFrameConstant.FIND_STUDENT_DIALOG_FIND_BYNO_BUTTON);
 		findByNoButton.setFont(TeacherFrameConstant.FIND_STUDENT_DIALOG_BUTTON_FONT);
 		findByNoButton.setBackground(new Color(1,158,151));
@@ -67,10 +67,10 @@ public class FindStudentDialog extends JDialog {
 		findByNoButton.addActionListener(new ButtonActionListener());
 	}
 	
-	/*
+	/**
 	 * 设置 查询(name) 确定按钮
 	 */
-	private void setFindByNameButton() {
+	private void initFindByNameButton() {
 		findByNameButton = new JButton(TeacherFrameConstant.FIND_STUDENT_DIALOG_FIND_BYNAME_BUTTON);
 		findByNameButton.setFont(TeacherFrameConstant.FIND_STUDENT_DIALOG_BUTTON_FONT);
 		findByNameButton.setBackground(new Color(1,158,151));
@@ -78,14 +78,14 @@ public class FindStudentDialog extends JDialog {
 		findByNameButton.addActionListener(new ButtonActionListener());
 	}
 	
-	/*
+	/**
 	 * 无参数构造器
 	 */
 	public FindStudentDialog() {
 		
 	}
 	
-	/*
+	/**
 	 * 含参数构造器
 	 */
 	FindStudentDialog(JFrame frame) {
@@ -98,13 +98,13 @@ public class FindStudentDialog extends JDialog {
 		setResizable(false);
 	}
 	
-	/*
+	/**
 	 * 初始化 窗体
 	 */
 	private void initialize() {
-		this.initializeLabel();			//初始化标签
-		this.initializeTextField(); 	//初始化文本框
-		this.initializeButton(); 		//初始化按钮
+		this.initLabel();			//初始化标签
+		this.initTextField(); 	//初始化文本框
+		this.initButton(); 		//初始化按钮
 		this.setTitle("查找学生");
 		this.setSize(227, 237);
 		this.setLocation(350, 100);
@@ -117,14 +117,14 @@ public class FindStudentDialog extends JDialog {
 		this.add(findByNameButton);
 	}
 	
-	/*
+	/**
 	 * 返回一个本窗体的引用
 	 */
 	private FindStudentDialog getFindStudentDialog() {
 		return this;
 	}
 	
-	/*
+	/**
 	 * 按钮的监听事件
 	 */
 	class ButtonActionListener implements ActionListener {

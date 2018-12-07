@@ -59,7 +59,7 @@ public class TeacherMainFrame extends JFrame{
 	private Teacher teacher;								
 	private StudentService studentService;
 	private TeacherService teacherService;
-	private com.pzh.www.service.CourseService CourseService;
+	private com.pzh.www.service.CourseService courseService;
 	private MyClassService myClassService;
 	private SelectCourseService selectCourseService;
 	private List<MyClass> myClassList;
@@ -77,19 +77,19 @@ public class TeacherMainFrame extends JFrame{
 		this.setVisible(true);
 	}
 	
-	/*
+	/**
 	 * 初始化Action；
 	 */
 	public void initializeAction() {
 		this.teacherService = TeacherService.getInstance();
 		this.studentService = StudentService.getInstance();
 		this.myClassService = MyClassService.getInstance();
-		this.CourseService = new CourseService();
-		this.selectCourseService = new SelectCourseService();
+		this.courseService = CourseService.getInstance();
+		this.selectCourseService = SelectCourseService.getInstance();
 		this.myClassList = myClassService.findAllClass();
 	}
 	
-	/*
+	/**
 	 * 初始化北部主面板
 	 */
 	public void setPanelNorthMain(String userStr) {
@@ -104,7 +104,7 @@ public class TeacherMainFrame extends JFrame{
 		panelNorthMain.setSize(360,80);
 	}
 
-	/*
+	/**
 	 * 初始化南部面板
 	 */
 	public void setPanelSouth() {
@@ -333,7 +333,7 @@ public class TeacherMainFrame extends JFrame{
 	}
 
 	public CourseService getCourseService() {
-		return CourseService;
+		return courseService;
 	}
 	
 	public SelectCourseService getSelectCourseService() {

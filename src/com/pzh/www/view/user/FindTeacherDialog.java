@@ -3,8 +3,6 @@ package com.pzh.www.view.user;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -32,20 +30,20 @@ public class FindTeacherDialog extends JDialog{
 	private List<Teacher> list = null;						//用于存放查询结果集
 	private UserMainFrame userMainFrame;			//保留对窗体的引用
 	
-	/*
+	/**
 	 * 初始化 标签
 	 */
-	private void initializeLabel() {
+	private void initLabel() {
 		teacherNoLabel = new JLabel("根据teacherNo查询   No：",JLabel.CENTER);
 		teacherNoLabel.setFont(new Font("微软雅黑",Font.PLAIN,13));
 		nameLabel = new JLabel("根据name的模糊查询   name：",JLabel.CENTER);
 		nameLabel.setFont(new Font("微软雅黑",Font.PLAIN,13));
 	}
 	
-	/*
+	/**
 	 * 初始化 文本框
 	 */
-	private void initializeTextField() {
+	private void initTextField() {
 		teacherNoTextField = new JTextField(15);
 		nameTextField = new JTextField(15);
 	}
@@ -58,71 +56,65 @@ public class FindTeacherDialog extends JDialog{
 		return nameTextField;
 	}
 	
-	/*
+	/**
 	 * 初始化 查询(id) 确定按钮
 	 */
-	public JButton getfindByNoButton() {
+	private JButton getFindByNoButton() {
 		findByNoButton = new JButton(UserFrameConstant.FIND_TEACHER_DIALOG_FIND_BYNO_BUTTON);
 		findByNoButton.setFont(UserFrameConstant.FIND_TEACHER_DIALOG_BUTTON_FONT);
 		findByNoButton.setBackground(new Color(1,158,151));
 		findByNoButton.setForeground(Color.WHITE);
-		findByNoButton.addActionListener(new ActionListener() {
-			// 查询(No) 确定按钮的监听事件
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(teacherNoTextField.getText().trim().length() > 0) {
-					list = userMainFrame.getTeacherService().findTeacherByNo(teacherNoTextField.getText());
-					if(list.size() > 0) {
-						getFindTeacherDialog().setVisible(false);
-						userMainFrame.setList(list);
-					}else {
-						new CheckDialog(getFindTeacherDialog(), "sorry,数据库无此资料！").setVisible(true);
-					}
+		// 查询(No) 确定按钮的监听事件
+		findByNoButton.addActionListener(e -> {
+			if(teacherNoTextField.getText().trim().length() > 0) {
+				list = userMainFrame.getTeacherService().findTeacherByNo(teacherNoTextField.getText());
+				if(list.size() > 0) {
+					getFindTeacherDialog().setVisible(false);
+					userMainFrame.setList(list);
 				}else {
-					new CheckDialog(getFindTeacherDialog(), "查询No不能为空！").setVisible(true);;
+					new CheckDialog(getFindTeacherDialog(), "sorry,数据库无此资料！").setVisible(true);
 				}
+			}else {
+				new CheckDialog(getFindTeacherDialog(), "查询No不能为空！").setVisible(true);;
 			}
 		});
 		return findByNoButton;
 	}
 	
-	/*
+	/**
 	 * 初始化 查询(name) 确定按钮
 	 */
-	public JButton getFindByNameButton() {
+	private JButton getFindByNameButton() {
 		findByNameButton = new JButton(UserFrameConstant.FIND_TEACHER_DIALOG_FIND_BYNAME_BUTTON);
 		findByNameButton.setFont(UserFrameConstant.FIND_TEACHER_DIALOG_BUTTON_FONT);
 		findByNameButton.setBackground(new Color(1,158,151));
 		findByNameButton.setForeground(Color.WHITE);
-		findByNameButton.addActionListener(new ActionListener() {
-			// 查询(name) 确定按钮的监听事件
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(nameTextField.getText().trim().length() > 0) {
-					list = userMainFrame.getTeacherService().findTeacherByName(nameTextField.getText());
-					if(list.size() > 0) {
-						getFindTeacherDialog().setVisible(false);
-						getFindTeacherDialog().dispose();
-						userMainFrame.setList(list);
-					}else {
-						new CheckDialog(getFindTeacherDialog(), "sorry,数据库无此资料！").setVisible(true);
-					}
+		// 查询(name) 确定按钮的监听事件
+		findByNameButton.addActionListener(e -> {
+			if(nameTextField.getText().trim().length() > 0) {
+				list = userMainFrame.getTeacherService().findTeacherByName(nameTextField.getText());
+				if(list.size() > 0) {
+					getFindTeacherDialog().setVisible(false);
+					getFindTeacherDialog().dispose();
+					userMainFrame.setList(list);
 				}else {
-					new CheckDialog(getFindTeacherDialog(), "查询name不能为空！").setVisible(true);
+					new CheckDialog(getFindTeacherDialog(), "sorry,数据库无此资料！").setVisible(true);
 				}
+			}else {
+				new CheckDialog(getFindTeacherDialog(), "查询name不能为空！").setVisible(true);
 			}
 		});
 		return findByNameButton;
 	}
 	
-	/*
+	/**
 	 * 无参数构造器
 	 */
 	public FindTeacherDialog(){
 		
 	}
 	
-	/*
+	/**
 	 * 含参数构造器
 	 */
 	public FindTeacherDialog(JFrame frame) {
@@ -130,30 +122,30 @@ public class FindTeacherDialog extends JDialog{
 		if(frame instanceof UserMainFrame) {
 			userMainFrame = (UserMainFrame) frame;
 		}
-		initialize();
+		init();
 		setVisible(true);
 		setResizable(false);
 	}
 	
-	/*
+	/**
 	 * 初始化 窗体
 	 */
-	private void initialize() {
-		this.initializeLabel();			//初始化标签
-		this.initializeTextField(); 	//初始化文本框
+	private void init() {
+		this.initLabel();			//初始化标签
+		this.initTextField(); 	//初始化文本框
 		this.setTitle("查找");
 		this.setSize(227, 237);
 		this.setLocation(350, 100);
 		this.setLayout(new FlowLayout());
 		this.add(teacherNoLabel);
 		this.add(teacherNoTextField);
-		this.add(getfindByNoButton());
+		this.add(getFindByNoButton());
 		this.add(nameLabel);
 		this.add(nameTextField);
 		this.add(getFindByNameButton());
 	}
 	
-	public FindTeacherDialog getFindTeacherDialog() {
+	private FindTeacherDialog getFindTeacherDialog() {
 		return this;
 	}
 }

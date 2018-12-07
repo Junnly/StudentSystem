@@ -55,10 +55,10 @@ public class UserMainFrame extends JFrame{
 		this.setResizable(false);								//设置大小不可变
 	}
 	
-	/*
+	/**
 	 * 初始化北部面板
 	 */
-	public JPanel getPanelNorth(String userStr) {
+	private JPanel getPanelNorth(String userStr) {
 		titleLabel = new JLabel("欢迎  " + userStr + "  使用本系统！",JLabel.CENTER);//初始化顶部标签
 		titleLabel.setFont(new Font("微软雅黑",Font.BOLD,16));									//设置顶部标签字体
 		panelNorth = new JPanel();																			//出事北部面板
@@ -71,10 +71,10 @@ public class UserMainFrame extends JFrame{
 		return panelNorth;																						//返回引用
 	}
 	
-	/*
+	/**
 	 * 初始化南部面板
 	 */
-	public JPanel getPanelSouth() {
+	private JPanel getPanelSouth() {
 		panelSouth = new JPanel();											    //初始化						
 		pageLabel = new JLabel("第  页/共  页");							//初始化页码标签
 		pageLabel.setForeground(Color.BLACK);							//设置页码标签的前景色
@@ -91,10 +91,10 @@ public class UserMainFrame extends JFrame{
 		return panelSouth;
 	}
 
-	/*
+	/**
 	 * 初始化北部副面板
 	 */
-	public JPanel getPanelNorthSecend() {
+	private JPanel getPanelNorthSecend() {
 		panelNorthSecend = new JPanel();					//初始化北部副面板
 		panelNorthSecend.add(getFindButton());			//在北部副面板添加 查找 按钮
 		panelNorthSecend.add(getFindAllButton());		//在北部副面板添加 老师列表 按钮
@@ -103,10 +103,10 @@ public class UserMainFrame extends JFrame{
 		return panelNorthSecend;
 	}
 	
-	/*
+	/**
 	 * 初始化ScrollPane面板
 	 */
-	public JScrollPane getScrollPane() {
+	private JScrollPane getScrollPane() {
 		scrollPane = new JScrollPane(getTable());			//初始化滚动面板
 		scrollPane.setLocation(65, 100);							//设置滚动面板的位置
 		scrollPane.setSize(760, 275);								//设置滚动面板的大小
@@ -114,10 +114,10 @@ public class UserMainFrame extends JFrame{
 		return scrollPane;
 	}
 	
-	/*
+	/**
 	 * 初始化Table
 	 */
-	public JTable getTable() {
+	private JTable getTable() {
 		table = new JTable(getTableModel());												//创建表格
 		table.setRowHeight(25); 																	//设置行高
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN); 	//设置表格的自动调整模式
@@ -142,14 +142,13 @@ public class UserMainFrame extends JFrame{
 		return table;
 	}
 	
-	/*
+	/**
 	 * 初始化表格模型
 	 */
-	public DefaultTableModel getTableModel() {
+	private DefaultTableModel getTableModel() {
 		String[] columnName = UserFrameConstant.USER_MAIN_FRAME_TABLEMODEL_COLUMNAME;  //表格模型的标题
-		String[][] tableValues = null;																											//表格模型的内容
 		//设置单元格不可被编辑
-		tableModel = new DefaultTableModel(tableValues,columnName) {
+		tableModel = new DefaultTableModel(null,columnName) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -158,47 +157,37 @@ public class UserMainFrame extends JFrame{
 		return tableModel;
 	}
 
-	/*
+	/**
 	 * 初始化 添加 按钮
 	 */
-	public JButton getAddButton() {
+	private JButton getAddButton() {
 		addButton = new JButton(UserFrameConstant.USER_MAIN_FRAME_ADDBUTTON);											
 		addButton.setFont(UserFrameConstant.USER_MAIN_FRAME_FONT);	//设置添加按钮的字体
 		addButton.setBackground(new Color(1,158,151));					//设置按钮的背景颜色
 		addButton.setForeground(Color.WHITE);								//设置按钮的字体颜色
 		addButton.setLocation(50, 50);												//设置位置
 		addButton.setSize(50, 50);														//设置大小
-		addButton.addActionListener(new ActionListener() {
-			//增加老师 按钮的监听事件
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new AddTeacherDialog(getUserMainFrame()).setVisible(true);
-			}
-		});
+		//增加老师 按钮的监听事件
+		addButton.addActionListener(e -> new AddTeacherDialog(getUserMainFrame()).setVisible(true));
 		return addButton;
 	}
 
-	/*
+	/**
 	 * 初始化 查找 按钮
 	 */
-	public JButton getFindButton() {
+	private JButton getFindButton() {
 		findButton = new JButton(UserFrameConstant.USER_MAIN_FRAME_FINDBUTTON);									
 		findButton.setFont(UserFrameConstant.USER_MAIN_FRAME_FONT);	//设置字体
 		findButton.setBackground(new Color(1,158,151));					//设置查找按钮的背景颜色
 		findButton.setForeground(Color.WHITE);								//设置查找按钮的字体颜色
-		findButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new FindTeacherDialog(getUserMainFrame());
-			}
-		});
+		findButton.addActionListener(e -> new FindTeacherDialog(getUserMainFrame()));
 		return findButton;
 	}
 	
-	/*
+	/**
 	 * 初始化 首页 按钮
 	 */
-	public JButton getFirstPageButton() {
+	private JButton getFirstPageButton() {
 		firstPageButton = new JButton(UserFrameConstant.USER_MAIN_FRAME_FIRSTPAGE_BUTTON);								
 		firstPageButton.setFont(UserFrameConstant.USER_MAIN_FRAME_FONT);	//字体
 		firstPageButton.setBackground(new Color(1,158,151));					//背景颜色
@@ -207,10 +196,10 @@ public class UserMainFrame extends JFrame{
 		return firstPageButton;
 	}
 
-	/*
+	/**
 	 * 初始化 尾页 按钮
 	 */
-	public JButton getTrailerPageButton() {
+	private JButton getTrailerPageButton() {
 		trailerPageButton = new JButton(UserFrameConstant.USER_MAIN_FRAME_TRAILERPAGE_BUTTON);				
 		trailerPageButton.setFont(UserFrameConstant.USER_MAIN_FRAME_FONT);	//字体
 		trailerPageButton.setBackground(new Color(1,158,151));				//背景颜色
@@ -219,10 +208,10 @@ public class UserMainFrame extends JFrame{
 		return trailerPageButton;
 	}
 	
-	/*
+	/**
 	 * 初始化 上一页 按钮
 	 */
-	public JButton getLastPageButton() {
+	private JButton getLastPageButton() {
 		lastPageButton = new JButton(UserFrameConstant.USER_MAIN_FRAME_LASTPAGE_BUTTON);					
 		lastPageButton.setFont(UserFrameConstant.USER_MAIN_FRAME_FONT);//字体
 		lastPageButton.setBackground(new Color(1,158,151));				//背景颜色
@@ -231,10 +220,10 @@ public class UserMainFrame extends JFrame{
 		return lastPageButton;
 	}
 
-	/*
+	/**
 	 * 初始化 下一页 按钮
 	 */
-	public JButton getNextPageButton() {
+	private JButton getNextPageButton() {
 		nextPageButton = new JButton(UserFrameConstant.USER_MAIN_FRAME_NEXTPAGE_BUTTON);						
 		nextPageButton.setFont(UserFrameConstant.USER_MAIN_FRAME_FONT);		//字体
 		nextPageButton.setBackground(new Color(1,158,151));						//背景颜色
@@ -243,46 +232,38 @@ public class UserMainFrame extends JFrame{
 		return nextPageButton;
 	}
 	
-	/*
+	/**
 	 * 初始化 退出 按钮
 	 */
-	public JButton getExitButton() {
+	private JButton getExitButton() {
 		exitButton = new JButton(UserFrameConstant.USER_MAIN_FRAME_EXIT_BUTTON);		
 		exitButton.setFont(UserFrameConstant.USER_MAIN_FRAME_FONT);	//字体
 		exitButton.setBackground(new Color(1,158,151));					//背景颜色
 		exitButton.setForeground(Color.WHITE);								//字体颜色
-		exitButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);								//设置不可见
-				dispose();											
-				JFrame login = new LoginFrame();
-				login.setVisible(true);						//设置可见
-			}
+		exitButton.addActionListener(e -> {
+			setVisible(false);								//设置不可见
+			dispose();
+			JFrame login = new LoginFrame();
+			login.setVisible(true);						//设置可见
 		});
 		return exitButton;
 	}
 
-	/*
+	/**
 	 * 初始化  老师列表 按钮
 	 */
-	public JButton getFindAllButton() {
+	private JButton getFindAllButton() {
 		findAllButton = new JButton(UserFrameConstant.USER_MAIN_FRAME_FINDALL_BUTTON);	//初始化
 		findAllButton.setFont(UserFrameConstant.USER_MAIN_FRAME_FONT);	//字体
 		findAllButton.setBackground(new Color(1,158,151));					//背景颜色
 		findAllButton.setForeground(Color.WHITE);								//字体颜色
-		findAllButton.addActionListener(new ActionListener() {
-			//老师列表 按钮的监听事件
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setList(teacherService.findAllTeacher());
-			}
-		});
+		//老师列表 按钮的监听事件
+		findAllButton.addActionListener(e -> setList(teacherService.findAllTeacher()));
 		return findAllButton;
 		
 	}
 	
-	/*
+	/**
 	 * set查询到的结果集
 	 */
 	public void setList(List<Teacher> list) {
@@ -302,18 +283,18 @@ public class UserMainFrame extends JFrame{
 		pageLabel.setText("第 " + teacherService.getCurrentPage() + " 页/共 " + teacherService.getAllPage() + " 页");//设置页码标签
 	}
 	
-	/*
+	/**
 	 * 返回一个本类对象的引用
 	 */
-	public UserMainFrame getUserMainFrame() {
+	private UserMainFrame getUserMainFrame() {
 		return this;
 	}
 	
-	public TeacherService getTeacherService() {
+	TeacherService getTeacherService() {
 		return teacherService;
 	}
 
-	/*
+	/**
 	 * 初始化登录成功窗体
 	 */
 	private void initialize() {
@@ -324,7 +305,7 @@ public class UserMainFrame extends JFrame{
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//设置窗体的默认关闭方式
 	}
 	
-	public void setDefaultTableModel(List<Teacher> list) {
+	private void setDefaultTableModel(List<Teacher> list) {
 		if(list != null) {
 			tableModel.setRowCount(0);										//清除原先表格数据
 			int i = 0;
@@ -343,7 +324,7 @@ public class UserMainFrame extends JFrame{
 		}
 	}
 
-	/*
+	/**
 	 * pageButton的监听事件
 	 */
 	class PageButtonActionListener implements ActionListener{

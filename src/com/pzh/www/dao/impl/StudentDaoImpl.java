@@ -155,7 +155,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public boolean deleteStudent(String studentNo) {
 		String[] param = {studentNo};
-		String sql = "DELETE FROM students WHERE Student_no = ?";
+		String sql = "DELETE FROM students WHERE student_no = ?";
 		return DBUtil.executeUpdate(sql, param);
 	}
 

@@ -40,10 +40,10 @@ public class UpdateStudentDialog extends JDialog {
 	private Student student;					//用于存放老师对象
 	private String studentNo;
 	
-	/*
+	/**
 	 * 初始化标签
 	 */
-	private void initializeLabel() {
+	private void initLabel() {
 		studentNameLabel = new JLabel("学生名字：",JLabel.CENTER);
 		studentGenderLabel = new JLabel("性别：",JLabel.CENTER);
 		studentPhoneLabel = new JLabel("紧急联系电话：",JLabel.CENTER);
@@ -61,20 +61,20 @@ public class UpdateStudentDialog extends JDialog {
 		studentClassLabel.setFont(TeacherFrameConstant.UPDATE_STUDENT_DIALOG_LABEL_FONT);
 	}
 	
-	/*
+	/**
 	 * 初始化文本框
 	 */
-	private void initializeTextField() {
+	private void initTextField() {
 		studentNameTextField = new JTextField(15);
 		studentGenderTextField = new JTextField(15);
 		studentPhoneTextField = new JTextField(15);
 		studentEmailTextField = new JTextField(15);
 	}
 	
-	/*
+	/**
 	 * 初始化 update 和 delete 按钮
 	 */
-	private void initializeButton() {
+	private void initButton() {
 		updateButton = new JButton(TeacherFrameConstant.UPDATE_STUDENT_DIALOG_UPDATE_BUTTON);
 		updateButton.setFont(TeacherFrameConstant.UPDATE_STUDENT_DIALOG_BUTTON_FONT);
 		updateButton.setBackground(new Color(1,158,151));
@@ -112,14 +112,14 @@ public class UpdateStudentDialog extends JDialog {
 		return this;
 	}
 	
-	/*
+	/**
 	 * 无参构造器
 	 */
 	public UpdateStudentDialog() {
 		
 	}
 	
-	/*
+	/**
 	 * 含参构造器
 	 */
 	public UpdateStudentDialog(TeacherMainFrame frame,String studentNo) {
@@ -127,9 +127,9 @@ public class UpdateStudentDialog extends JDialog {
 		this.studentNo = studentNo;
 		this.student = frame.getStudentService().findStudentByNo(studentNo).get(0);
 		JPanel c = new JPanel();
-		initializeLabel();						//初始化 各种标签
-		initializeTextField();				//初始化 各种文本框
-		initializeButton();					//初始化 按钮
+		initLabel();						//初始化 各种标签
+		initTextField();				//初始化 各种文本框
+		initButton();					//初始化 按钮
 		
 		jc = new JComboBox<>(new MyComboBox(frame.getMyClassList()));
 		jc.setFont(getFont());
@@ -159,7 +159,7 @@ public class UpdateStudentDialog extends JDialog {
 		this.add(buttonPanel,BorderLayout.SOUTH);
 	}
 	
-	/*
+	/**
 	 * 按钮的监听事件
 	 */
 	class ButtonActionListener implements ActionListener{

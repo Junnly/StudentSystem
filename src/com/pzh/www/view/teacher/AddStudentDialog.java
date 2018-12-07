@@ -47,10 +47,10 @@ public class AddStudentDialog extends JDialog{
 	private CheckDialog checkDialog;				//检查 窗体
 	private TeacherMainFrame teacherMainFrame;
 	
-	/*
+	/**
 	 * 确定按钮的设置
 	 */
-	public void setOkButton() {
+	private void initOkButton() {
 		okButton = new JButton(TeacherFrameConstant.ADD_STUDENT_DIALOG_OK_BUTTON);
 		okButton.setFont(TeacherFrameConstant.ADD_STUDENT_DIALOG_BUTTON_FONT);
 		okButton.setBackground(new Color(1,158,151));
@@ -58,10 +58,10 @@ public class AddStudentDialog extends JDialog{
 		okButton.addActionListener(new ButtonActionListener());
 	}
 
-	/*
+	/**
 	 * 取消按钮的设置
 	 */
-	public void setCancelButton() {
+	private void initCancelButton() {
 		cancelButton = new JButton(TeacherFrameConstant.ADD_STUDENT_DIALOG_CANCEL_BUTTON);
 		cancelButton.setFont(TeacherFrameConstant.ADD_STUDENT_DIALOG_BUTTON_FONT);
 		cancelButton.setBackground(new Color(1,158,151));
@@ -69,10 +69,10 @@ public class AddStudentDialog extends JDialog{
 		cancelButton.addActionListener(new ButtonActionListener());
 	}
 
-	/*
+	/**
 	 * 继续添加按钮的设置
 	 */
-	public void setContinueAddButton() {
+	private void initContinueAddButton() {
 		continueAddButton = new JButton(TeacherFrameConstant.ADD_STUDENT_DIALOG_CONTINUE_ADD_BUTTON);
 		continueAddButton.setFont(TeacherFrameConstant.ADD_STUDENT_DIALOG_BUTTON_FONT);
 		continueAddButton.setBackground(new Color(1,158,151));
@@ -80,10 +80,10 @@ public class AddStudentDialog extends JDialog{
 		continueAddButton.addActionListener(new ButtonActionListener());
 	}
 
-	/*
+	/**
 	 * 返回按钮的设置
 	 */
-	public void setBackButton() {
+	private void initBackButton() {
 		backButton = new JButton(TeacherFrameConstant.ADD_STUDENT_DIALOG_BACK_BUTTON);
 		backButton.setFont(TeacherFrameConstant.ADD_STUDENT_DIALOG_BUTTON_FONT);
 		backButton.setBackground(new Color(1,158,151));
@@ -91,18 +91,18 @@ public class AddStudentDialog extends JDialog{
 		backButton.addActionListener(new ButtonActionListener());
 	}
 
-	/*
+	/**
 	 * 初始化 检查 窗体
 	 */
-	public CheckDialog getCheckDialog() {
+	private CheckDialog getCheckDialog() {
 		checkDialog = new CheckDialog(getAddStudentDialog());
 		return checkDialog;
 	}
 	
-	/*
+	/**
 	 * 初始化标签
 	 */
-	public void initializeLabel() {
+	private void initLabel() {
 		studentNameLabel = new JLabel("学生名字：",JLabel.CENTER);
 		studentGenderLabel = new JLabel("性别：",JLabel.CENTER);
 		studentPhoneLabel = new JLabel("紧急联系电话：",JLabel.CENTER);
@@ -120,10 +120,10 @@ public class AddStudentDialog extends JDialog{
 		studentClassLabel.setFont(TeacherFrameConstant.ADD_STUDENT_DIALOG_LABEL_FONT);
 	}
 	
-	/*
+	/**
 	 * 初始化文本框
 	 */
-	public void initializeTextField() {
+	private void initTextField() {
 		studentNameTextField = new JTextField(15);
 		studentGenderTextField = new JTextField(15);
 		studentPhoneTextField = new JTextField(15);
@@ -132,40 +132,40 @@ public class AddStudentDialog extends JDialog{
 		studentPasswordTextField = new JTextField(15);
 	}
 	
-	/*
+	/**
 	 * 初始化按钮
 	 */
-	public void initializeButton() {
-		setOkButton();			//确定 按钮
-		setCancelButton();		//取消 按钮
-		setContinueAddButton();	//继续 添加按钮
-		setBackButton(); 		//返回 按钮
+	private void initButton() {
+		initOkButton();			//确定 按钮
+		initCancelButton();		//取消 按钮
+		initContinueAddButton();	//继续 添加按钮
+		initBackButton(); 		//返回 按钮
 	}
 	
-	/*
+	/**
 	 * 返回一个本类对象的引用
 	 */
-	public AddStudentDialog getAddStudentDialog() {
+	private AddStudentDialog getAddStudentDialog() {
 		return this;
 	}
 	
-	/*
+	/**
 	 * 不带参数的构造器
 	 */
 	public AddStudentDialog() {
 		
 	}
 	
-	/*
+	/**
 	 * 含参数的构造器
 	 */
 	public AddStudentDialog(TeacherMainFrame frame) {
 		super(frame,"添加学生资料",true);
 		this.teacherMainFrame = frame;
 		JPanel c = new JPanel();
-		initializeLabel();						//初始化 各种标签
-		initializeTextField();				//初始化 各种文本框
-		initializeButton();					//初始化 各种按钮
+		initLabel();						//初始化 各种标签
+		initTextField();				//初始化 各种文本框
+		initButton();					//初始化 各种按钮
 		jc = new JComboBox<>(new MyComboBox(teacherMainFrame.getMyClassList()));
 		jc.setFont(getFont());
 		c.add(studentNameLabel);
@@ -191,7 +191,7 @@ public class AddStudentDialog extends JDialog{
 		this.setResizable(false);
 	}
 	
-	/*
+	/**
 	 * 添加表的表单验证
 	 */
 	private boolean checkAddStudentTable() {
@@ -226,7 +226,7 @@ public class AddStudentDialog extends JDialog{
 		return true;
 	}
 	
-	/*
+	/**
 	 * 按钮的监听事件
 	 */
 	class ButtonActionListener implements ActionListener{

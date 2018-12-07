@@ -13,6 +13,14 @@ import com.pzh.www.po.Course;
  */
 public class CourseService {
 
+	private static final CourseService INSTANCE = new CourseService();
+
+	private CourseService() {}
+
+	public static CourseService getInstance() {
+		return INSTANCE;
+	}
+
 	private CourseDao courseDao = new CourseDaoImpl();
 	
 	public Course getCourseByCourseId(int courseId) {

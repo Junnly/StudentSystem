@@ -13,6 +13,14 @@ import com.pzh.www.po.SelectCourse;
  */
 public class SelectCourseService {
 
+	private static SelectCourseService INSTANCE = new SelectCourseService();
+
+	private SelectCourseService() {}
+
+	public static SelectCourseService getInstance() {
+		return INSTANCE;
+	}
+
 	private SelectCourseDao selectCourseDao = new SelectCourseDaoImpl();
 
 	public int[] getCourseIdById(int id) {
